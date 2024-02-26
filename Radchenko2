@@ -1,0 +1,58 @@
+def add_contact(contacts, username, phone):
+    contacts[username] = phone
+    return "Contact added."
+
+def change_contact(contacts, username, phone):
+    if username in contacts:
+        contacts[username] = phone
+        return "Contact updated."
+    else:
+        return "Contact not found."
+
+def show_phone(contacts, username):
+    if username in contacts:
+        return contacts[username]
+    else:
+        return "Contact not found."
+
+def show_all(contacts):
+    if contacts:
+        return "\n".join([f"{name}: {phone}" for name, phone in contacts.items()])
+    else:
+        return "Phone book is empty."
+
+def main():
+    contacts = {}
+    print("Welcome to the assistant bot!")
+    
+    while True:
+        user_input = input("Enter a command: ").strip().lower()
+        command = user_input.split()
+
+        if command[0] in ["close", "exit"]:
+            print("Good bye!")
+            break
+        elif command[0] == "hello":
+            print("How can I help you?")
+        elif command[0] == "add":
+            if len(command) != 3:
+                print("Invalid command format. Usage: add [username] [phone]")
+            else:
+                print(add_contact(contacts, command[1], command[2]))
+        elif command[0] == "change":
+            if len(command) != 3:
+                print("Invalid command format. Usage: change [username] [phone]")
+            else:
+                print(change_contact(contacts, command[1], command[2]))
+        elif command[0] == "phone":
+            if len(command) != 2:
+                print("Invalid command format. Usage: phone [username]")
+            else:
+                print(show_phone(contacts, command[1]))
+        elif command[0] == "all":
+            print(show_all(contacts))
+        else:
+            print("Invalid command.")
+
+if __name__ == "__main__":
+    main()
